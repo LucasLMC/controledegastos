@@ -1,0 +1,73 @@
+<div class="container">
+    <div class="row justify-content-center mb-5">
+            <h1 class="text-center title">Controle Financeiro</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12 d-flex align-items-center h-100">
+            <form class="w-100" #controleForm="ngForm" (ngSubmit)="saveValue()">
+                <div class="row">
+                    <div class="">
+                        <div class="input-group mb-3 mt-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Valor R$</span>
+                            </div>
+                            <input name="valor" class="form-control" type="number" [(ngModel)]="controle.valor"
+                                #valor="ngModel" required>
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label  class="letters"for="descricao">Selecione o tipo da conta <em>*</em></label>
+                            <select class="form-control ml-2" id="moneyOption" name="tipo" [(ngModel)]="controle.tipo"
+                                #tipo="ngModel" required>
+                                <option>Entrada</option>
+                                <option>Saída</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group mb-3 mt-3">
+                            <label  class="letters"for="descricao">Descrição do Valor <em>*</em></label>
+                            <input type="text-area" name="detalhes" class="form-control" id="detalhes" placeholder="Origem do valor"
+                                [(ngModel)]="controle.detalhes" #descricao="ngModel" required>
+                        </div>
+                        <div class="form-group mb-3 mt-3">
+                            <label class="letters"for="data_valor">Data <em>*</em></label>
+                            <input class="form-control" name="data_valor" type="date" id="data_valor"
+                                [(ngModel)]="controle.data_valor" #data_valor="ngModel" required 
+                                min='2021-01-01' onkeydown="return false">
+                        </div>
+    
+                        <div class="d-flex justify-content-center mt-3">
+                            <button class="btn btn-light w-50 mt-2" type="submit" [disabled]="controleForm.invalid">Salvar</button>
+                        </div>
+                    </div> 
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6 col-sm-12 d-flex justify-content-center">
+            <div class="row float-right">
+                <div class="col-lg-2 mr-3">
+                    <app-donut-chart></app-donut-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <table class="table letters text-center">
+            <thead class=head-dark>
+                <tr>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Data</th>
+                    <th scope="col">Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let index of dados">
+                    <td>{{index.tipo}}</td>
+                    <td>{{index.detalhes}}</td>
+                    <td>{{index.data_valor | date: 'dd/MM/yyyy'}}</td>
+                    <td>R${{index.valor}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
